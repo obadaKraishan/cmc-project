@@ -1,6 +1,4 @@
-// cms/frontend/src/components/Auth/Login.js
-
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react'; // Added useEffect
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
@@ -8,8 +6,15 @@ import { TextField, Button, Container, Typography, Box } from '@mui/material';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext); // Access user from AuthContext
   const navigate = useNavigate();
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

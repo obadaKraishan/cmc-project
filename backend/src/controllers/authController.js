@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && (await bcrypt.compare(password, user.password))) {  // Compare hashed passwords
       return res.json({
         _id: user._id,
         name: user.name,
