@@ -5,12 +5,13 @@ const {
   getAllMedia,
 } = require('../controllers/mediaController');
 const { protect } = require('../middleware/authMiddleware');
+const { checkRole } = require('../middleware/roleMiddleware');
 
 const router = express.Router();
 
-// Private routes
-router.post('/upload', protect, uploadMedia);
-router.delete('/:id', protect, deleteMedia);
+// Private routes with role checks
+router.post('/upload', protect, checkRole(['admin', 'editor']), uploadMedia);
+router.delete('/:id', protect, checkRole(['admin']), deleteMedia);
 router.get('/', protect, getAllMedia);
 
 module.exports = router;
