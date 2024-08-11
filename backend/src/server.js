@@ -4,6 +4,8 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const contentRoutes = require('./routes/contentRoutes');
+const mediaRoutes = require('./routes/mediaRoutes');
+const path = require('path');
 
 dotenv.config();
 
@@ -16,9 +18,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Static folder for uploaded files
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/media', mediaRoutes);
 
 // Test Route
 app.get('/', (req, res) => {
