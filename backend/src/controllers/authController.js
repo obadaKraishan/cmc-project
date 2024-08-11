@@ -9,8 +9,18 @@ const generateToken = (id) => {
 // @desc Register a new user
 // @route POST /api/auth/register
 // @access Public
+// @desc Register a new user
+// @route POST /api/auth/register
+// @access Public
 const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
+
+  // Log the incoming request data for debugging
+  console.log('Register request:', req.body);
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Please include all fields' });
+  }
 
   try {
     // Check if the user already exists
@@ -20,11 +30,15 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Create new user
+    // Hash the password before saving the user
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user with the role
     const user = await User.create({
       name,
       email,
-      password,
+      password: hashedPassword,
+      role: role || 'viewer',  // Default to 'viewer' if no role is provided
     });
 
     // Return JWT token
@@ -32,11 +46,12 @@ const registerUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
+      role: user.role,  // Include the role in the response
       token: generateToken(user._id),
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error during user registration:', error);
+    return res.status(500).json({ message: 'Server error during registration' });
   }
 };
 
@@ -45,6 +60,10 @@ const registerUser = async (req, res) => {
 // @access Public
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Please include all fields' });
+  }
 
   try {
     const user = await User.findOne({ email });
@@ -76,7 +95,7 @@ const getUserProfile = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
+      role: user.role,  // Include the role in the response
     });
   } else {
     return res.status(404).json({ message: 'User not found' });
