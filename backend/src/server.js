@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 const mediaRoutes = require('./routes/mediaRoutes');
+const userRoutes = require('./routes/userRoutes');
 const path = require('path');
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api', userRoutes);
 
 // Test Route
 app.get('/', (req, res) => {
