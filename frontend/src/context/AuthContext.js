@@ -33,24 +33,30 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await api.post('/api/auth/login', { email, password });
-      setUser(data);
-      localStorage.setItem('token', data.token);
+      setLoading(true);
+      const response = await api.post('/api/auth/login', { email, password });
+      setUser(response.data);
+      localStorage.setItem('token', response.data.token);
     } catch (error) {
-      console.error('Login failed', error);
+      console.error('Login failed', error.response ? error.response.data : error.message);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
   const register = async (name, email, password) => {
     try {
-      console.log('Sending registration request:', { name, email, password }); // Log the request payload
-      const { data } = await api.post('/api/auth/register', { name, email, password });
-      setUser(data);
-      localStorage.setItem('token', data.token);
+      setLoading(true);
+      console.log('Sending registration request:', { name, email, password });
+      const response = await api.post('/api/auth/register', { name, email, password });
+      setUser(response.data);
+      localStorage.setItem('token', response.data.token);
     } catch (error) {
-      console.error('Registration failed', error);
+      console.error('Registration failed', error.response ? error.response.data : error.message);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 

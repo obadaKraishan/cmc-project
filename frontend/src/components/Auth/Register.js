@@ -12,6 +12,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Registering with:', { name, email, password });  // This logs the data being sent
     try {
       await register(name, email, password);
       navigate('/dashboard');
