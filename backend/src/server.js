@@ -8,7 +8,19 @@ const mediaRoutes = require('./routes/mediaRoutes');
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
 
-dotenv.config();
+// Load environment variables
+dotenv.config({ path: './.env' });
+
+// Debugging: Manually set the variables if they are undefined
+if (!process.env.MONGODB_URI) {
+  process.env.MONGODB_URI = 'mongodb://localhost:27017/cms';
+}
+if (!process.env.PORT) {
+  process.env.PORT = '5001';
+}
+
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+console.log('PORT:', process.env.PORT);
 
 // Connect to MongoDB
 connectDB();
@@ -33,7 +45,7 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
