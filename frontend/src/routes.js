@@ -3,6 +3,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard/Dashboard';
+import ContentEditor from './components/Dashboard/ContentEditor';
+import MediaManager from './components/Dashboard/MediaManager';
+import UserRoles from './components/Dashboard/UserRoles';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { useContext } from 'react';
@@ -24,6 +27,9 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/content-editor" element={<ProtectedRoute><ContentEditor /></ProtectedRoute>} />
+      <Route path="/media-manager" element={<ProtectedRoute><MediaManager /></ProtectedRoute>} />
+      <Route path="/user-roles" element={<ProtectedRoute><UserRoles /></ProtectedRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
