@@ -1,3 +1,4 @@
+// frontend/src/routes.js
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Auth/Login';
@@ -6,6 +7,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import ContentEditor from './components/Dashboard/ContentEditor';
 import MediaManager from './components/Dashboard/MediaManager';
 import UserRoles from './components/Dashboard/UserRoles';
+import PageBuilder from './components/PageBuilder';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { useContext } from 'react';
@@ -30,6 +32,7 @@ const AppRoutes = () => {
       <Route path="/content-editor" element={<ProtectedRoute><ContentEditor /></ProtectedRoute>} />
       <Route path="/media-manager" element={<ProtectedRoute><MediaManager /></ProtectedRoute>} />
       <Route path="/user-roles" element={<ProtectedRoute><UserRoles /></ProtectedRoute>} />
+      <Route path="/page-builder" element={<ProtectedRoute><PageBuilder /></ProtectedRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

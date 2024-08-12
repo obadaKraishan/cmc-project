@@ -32,6 +32,10 @@ const Sidebar = () => {
         <ListItem button component={Link} to="/user-roles">
           <ListItemText primary="User Roles" />
         </ListItem>
+        <Divider />
+        <ListItem button component={Link} to="/page-builder">
+          <ListItemText primary="Page Builder" />
+        </ListItem>
       </List>
     </Box>
   );
