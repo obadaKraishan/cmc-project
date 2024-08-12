@@ -6,11 +6,11 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        width: { xs: '100%', sm: 240 }, // Responsive width
+        width: { xs: '100%', sm: 240 },
         backgroundColor: '#f4f4f4',
         height: '100vh',
         paddingTop: 2,
-        position: { xs: 'fixed', sm: 'relative' }, // Fixed on small screens
+        position: { xs: 'fixed', sm: 'relative' },
         zIndex: 1200,
       }}
     >
@@ -33,6 +33,10 @@ const Sidebar = () => {
         <Divider />
         <ListItem button component={Link} to="/pages">
           <ListItemText primary="Pages" />
+        </ListItem>
+        <Divider />
+        <ListItem button component={Link} to="/pages/new">
+          <ListItemText primary="Add New Page" />
         </ListItem>
       </List>
     </Box>
