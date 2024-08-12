@@ -1,5 +1,3 @@
-// cms/frontend/src/components/Sidebar.js
-
 import React from 'react';
 import { Box, List, ListItem, ListItemText, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -33,8 +31,8 @@ const Sidebar = () => {
           <ListItemText primary="User Roles" />
         </ListItem>
         <Divider />
-        <ListItem button component={Link} to="/page-builder">
-          <ListItemText primary="Page Builder" />
+        <ListItem button component={Link} to="/pages">
+          <ListItemText primary="Pages" />
         </ListItem>
       </List>
     </Box>

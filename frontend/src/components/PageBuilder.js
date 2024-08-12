@@ -1,7 +1,7 @@
 // frontend/src/components/PageBuilder.js
 import React, { useState } from 'react';
 import { Container, Button } from '@mui/material';
-import ComponentEditor from './ComponentEditor';
+import ComponentEditor from './Dashboard/ComponentEditor';
 
 const PageBuilder = () => {
   const [components, setComponents] = useState([]);

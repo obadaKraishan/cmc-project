@@ -6,10 +6,11 @@ const authRoutes = require('./routes/authRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 const mediaRoutes = require('./routes/mediaRoutes');
 const userRoutes = require('./routes/userRoutes');
+const pageRoutes = require('./routes/pageRoutes'); // Import the new pageRoutes
 const path = require('path');
 
 // Load environment variables
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // Debugging: Manually set the variables if they are undefined
 if (!process.env.MONGODB_URI) {
@@ -22,7 +23,6 @@ if (!process.env.PORT) {
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 console.log('PORT:', process.env.PORT);
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
-
 
 // Connect to MongoDB
 connectDB();
@@ -40,7 +40,8 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
-app.use('/api', userRoutes);
+app.use('/api/users', userRoutes); // Corrected route path
+app.use('/api/pages', pageRoutes); // Add page routes
 
 // Test Route
 app.get('/', (req, res) => {
